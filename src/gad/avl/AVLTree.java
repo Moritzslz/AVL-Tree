@@ -24,21 +24,18 @@ public class AVLTree {
     }
 
     public boolean validAVL() {
-        for (AVLTreeNode node : nodes) {
-            int savedBalance = node.getBalance();
-            int calculatedBalance = node.getRight().height() - node.getLeft().height();
+            int savedBalance = root.getBalance();
+            int calculatedBalance = root.getRight().height() - root.getLeft().height() + 1;
             if (savedBalance != calculatedBalance) {
                 return false;
             }
             calculatedBalance = calculatedBalance * calculatedBalance;
             if (calculatedBalance < 1) {
                 return false;
-            } else if (node.getLeft().getKey() > node.getRight().getKey()) {
+            } else if (root.getLeft().getKey() > root.getRight().getKey()) {
                 return false;
             }
             return true;
-        }
-        return true;
     }
 
     public void insert(int key) {

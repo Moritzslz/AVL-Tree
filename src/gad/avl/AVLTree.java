@@ -15,7 +15,7 @@ public class AVLTree {
     }
 
     public int height() {
-        return 0;
+        return root.height();
     }
 
     public boolean validAVL() {

@@ -54,8 +54,7 @@ public class AVLTreeNode {
     }
 
     public boolean validateNode() {
-        /*
-        boolean valid = true;
+      /*  boolean valid = true;
         int savedBalance = getBalance();
         int calculatedBalance = 0;
         if (getLeft() == null && getRight() != null) {
@@ -81,9 +80,7 @@ public class AVLTreeNode {
         if (getRight() != null && valid) {
             valid = getRight().validateNode();
         }
-        return valid;
-
-         */
+        return valid;*/
         int leftHeight = (getLeft() != null) ? getLeft().height() : 0;
         int rightHeight = (getRight() != null) ? getRight().height() : 0;
 
@@ -93,11 +90,11 @@ public class AVLTreeNode {
             return false;
         }
 
-        if (getLeft() != null && getLeft().getKey() > getKey()) {
+        if (getLeft() != null && (getLeft().getKey() > getKey())) {
             return false;
         }
 
-        if (getRight() != null && getRight().getKey() < getKey()) {
+        if (getRight() != null && (getRight().getKey() < getKey())) {
             return false;
         }
 

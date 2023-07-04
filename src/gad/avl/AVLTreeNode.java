@@ -55,24 +55,29 @@ public class AVLTreeNode {
 
     public boolean validateNode() {
         boolean valid = true;
-        if (getLeft() != null && getRight() != null) {
-            int savedBalance = getBalance();
-            int calculatedBalance = getRight().height() - getLeft().height();
-            if (savedBalance != calculatedBalance) {
-                return false;
-            }
-            calculatedBalance = calculatedBalance * calculatedBalance;
-            if (calculatedBalance > 1) {
-                return false;
-            }
+        int savedBalance = getBalance();
+        int calculatedBalance = 0;
+        if (getLeft() == null && getRight() != null) {
+            calculatedBalance = getRight().height();
+        } else if (getRight() == null && getLeft() != null) {
+            calculatedBalance = getLeft().height();
+        } else if (getLeft() != null && getRight() != null) {
+            calculatedBalance = getRight().height() - getLeft().height();
             if (getLeft().getKey() > getRight().getKey()) {
                 return false;
             }
         }
+        if (savedBalance != calculatedBalance) {
+            return false;
+        }
+        calculatedBalance = calculatedBalance * calculatedBalance;
+        if (calculatedBalance > 1) {
+            return false;
+        }
         if (getLeft() != null) {
             valid = getLeft().validateNode();
         }
-        if (getRight() != null) {
+        if (getRight() != null && valid) {
             valid = getRight().validateNode();
         }
         return valid;

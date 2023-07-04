@@ -39,7 +39,18 @@ public class AVLTreeNode {
     }
 
     public int height() {
-        return 0;
+        if (getLeft().equals(null) && getRight().equals(null)) {
+            return 1;
+        } else {
+            int height = 0;
+            if (!getLeft().equals(null)) {
+                height += getLeft().height();
+            }
+            if (!getRight().equals(null)) {
+                height += getRight().height();
+            }
+            return height;
+        }
     }
 
     /**

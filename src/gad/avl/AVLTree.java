@@ -6,7 +6,6 @@ import java.util.Comparator;
 
 public class AVLTree {
     private AVLTreeNode root = null;
-    private ArrayList<AVLTreeNode> nodes = new ArrayList<>();
 
     public AVLTree() {
     }
@@ -24,30 +23,24 @@ public class AVLTree {
     }
 
     public boolean validAVL() {
-            int savedBalance = root.getBalance();
-            int calculatedBalance = root.getRight().height() - root.getLeft().height();
-            if (savedBalance != calculatedBalance) {
-                return false;
-            } else if (calculatedBalance != 0 && calculatedBalance != -1 && calculatedBalance != 1) {
-                return false;
-            } else if (root.getLeft().getKey() > root.getRight().getKey()) {
-                return false;
-            }
-            return true;
+        return root.validateNode();
     }
 
     public void insert(int key) {
         AVLTreeNode node = new AVLTreeNode(key);
-        nodes.add(node);
-        nodes.sort(Comparator.comparing(AVLTreeNode::getKey));
-        if (key > root.getKey()) {
-            // insert right
+        if (key < root.getKey()) {
+            // Insert left
         } else  {
-            // insert left
+            // Insert right
         }
     }
 
     public boolean find(int key) {
+        if (key < root.getKey()) {
+            // Search left side
+        } else {
+            // Search right side
+        }
         return false;
     }
 

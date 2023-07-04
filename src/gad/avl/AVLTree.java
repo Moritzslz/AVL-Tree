@@ -25,12 +25,12 @@ public class AVLTree {
 
     public boolean validAVL() {
             int savedBalance = root.getBalance();
-            int calculatedBalance = root.getRight().height() - root.getLeft().height() + 1;
+            int calculatedBalance = root.getRight().height() - root.getLeft().height();
             if (savedBalance != calculatedBalance) {
                 return false;
             }
             calculatedBalance = calculatedBalance * calculatedBalance;
-            if (calculatedBalance < 1) {
+            if (calculatedBalance > 1) {
                 return false;
             } else if (root.getLeft().getKey() > root.getRight().getKey()) {
                 return false;

@@ -58,9 +58,9 @@ public class AVLTreeNode {
         int savedBalance = getBalance();
         int calculatedBalance = 0;
         if (getLeft() == null && getRight() != null) {
-            calculatedBalance = getRight().height() - 1;
+            calculatedBalance = getRight().height() + 1;
         } else if (getRight() == null && getLeft() != null) {
-            calculatedBalance = getLeft().height() - 1;
+            calculatedBalance = getLeft().height() + 1;
         } else if (getLeft() != null && getRight() != null) {
             calculatedBalance = getRight().height() - getLeft().height();
             if (getLeft().getKey() > getRight().getKey()) {

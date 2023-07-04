@@ -23,7 +23,7 @@ public class AVLTree {
     }
 
     public boolean validAVL() {
-        return root.validateNode();
+        return root.validate();
     }
 
     public void insert(int key) {

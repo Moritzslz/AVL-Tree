@@ -53,14 +53,14 @@ public class AVLTreeNode {
         }
     }
 
-    public boolean validateNode() {
-      /*  boolean valid = true;
+    public boolean validate() {
+        boolean valid = true;
         int savedBalance = getBalance();
         int calculatedBalance = 0;
         if (getLeft() == null && getRight() != null) {
-            calculatedBalance = getRight().height();
+            calculatedBalance = getRight().height() - 1;
         } else if (getRight() == null && getLeft() != null) {
-            calculatedBalance = getLeft().height();
+            calculatedBalance = getLeft().height() - 1;
         } else if (getLeft() != null && getRight() != null) {
             calculatedBalance = getRight().height() - getLeft().height();
             if (getLeft().getKey() > getRight().getKey()) {
@@ -75,33 +75,12 @@ public class AVLTreeNode {
             return false;
         }
         if (getLeft() != null) {
-            valid = getLeft().validateNode();
+            valid = getLeft().validate();
         }
         if (getRight() != null && valid) {
-            valid = getRight().validateNode();
+            valid = getRight().validate();
         }
-        return valid;*/
-        int leftHeight = (getLeft() != null) ? getLeft().height() : 0;
-        int rightHeight = (getRight() != null) ? getRight().height() : 0;
-
-        int calculatedBalance = rightHeight - leftHeight;
-
-        if (getBalance() != calculatedBalance || Math.abs(calculatedBalance) > 1) {
-            return false;
-        }
-
-        if (getLeft() != null && (getLeft().getKey() > getKey())) {
-            return false;
-        }
-
-        if (getRight() != null && (getRight().getKey() < getKey())) {
-            return false;
-        }
-
-        boolean leftValid = (getLeft() == null) || getLeft().validateNode();
-        boolean rightValid = (getRight() == null) || getRight().validateNode();
-
-        return leftValid && rightValid;
+        return valid;
    }
 
     /**

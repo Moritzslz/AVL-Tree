@@ -28,9 +28,7 @@ public class AVLTree {
             int calculatedBalance = root.getRight().height() - root.getLeft().height();
             if (savedBalance != calculatedBalance) {
                 return false;
-            }
-            calculatedBalance = calculatedBalance * calculatedBalance;
-            if (calculatedBalance > 1) {
+            } else if (calculatedBalance != 0 && calculatedBalance != -1 && calculatedBalance != 1) {
                 return false;
             } else if (root.getLeft().getKey() > root.getRight().getKey()) {
                 return false;

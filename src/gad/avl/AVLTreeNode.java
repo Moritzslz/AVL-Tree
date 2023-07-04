@@ -54,6 +54,7 @@ public class AVLTreeNode {
     }
 
     public boolean validateNode() {
+        /*
         boolean valid = true;
         int savedBalance = getBalance();
         int calculatedBalance = 0;
@@ -81,7 +82,30 @@ public class AVLTreeNode {
             valid = getRight().validateNode();
         }
         return valid;
-    }
+
+         */
+        int leftHeight = (getLeft() != null) ? getLeft().height() : 0;
+        int rightHeight = (getRight() != null) ? getRight().height() : 0;
+
+        int calculatedBalance = rightHeight - leftHeight;
+
+        if (getBalance() != calculatedBalance || Math.abs(calculatedBalance) > 1) {
+            return false;
+        }
+
+        if (getLeft() != null && getLeft().getKey() > getKey()) {
+            return false;
+        }
+
+        if (getRight() != null && getRight().getKey() < getKey()) {
+            return false;
+        }
+
+        boolean leftValid = (getLeft() == null) || getLeft().validateNode();
+        boolean rightValid = (getRight() == null) || getRight().validateNode();
+
+        return leftValid && rightValid;
+   }
 
     /**
      * Diese Methode wandelt den Baum in das Graphviz-Format um.

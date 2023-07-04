@@ -55,16 +55,19 @@ public class AVLTreeNode {
 
     public boolean validateNode() {
         boolean valid = true;
-        int savedBalance = this.getBalance();
-        int calculatedBalance = this.getRight().height() - this.getLeft().height();
-        if (savedBalance != calculatedBalance) {
-            return false;
-        }
-        calculatedBalance = calculatedBalance * calculatedBalance;
-        if (calculatedBalance > 1) {
-            return false;
-        } else if (this.getLeft().getKey() > this.getRight().getKey()) {
-            return false;
+        if (getLeft() != null && getRight() != null) {
+            int savedBalance = getBalance();
+            int calculatedBalance = getRight().height() - getLeft().height();
+            if (savedBalance != calculatedBalance) {
+                return false;
+            }
+            calculatedBalance = calculatedBalance * calculatedBalance;
+            if (calculatedBalance > 1) {
+                return false;
+            }
+            if (getLeft().getKey() > getRight().getKey()) {
+                return false;
+            }
         }
         if (getLeft() != null) {
             valid = getLeft().validateNode();

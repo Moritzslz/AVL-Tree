@@ -1,7 +1,12 @@
 package gad.avl;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Comparator;
+
 public class AVLTree {
     private AVLTreeNode root = null;
+    private ArrayList<AVLTreeNode> nodes = new ArrayList<>();
 
     public AVLTree() {
     }
@@ -19,21 +24,32 @@ public class AVLTree {
     }
 
     public boolean validAVL() {
-        int savedBalance = root.getBalance();
-        int calculatedBalance = root.getRight().height() - root.getLeft().height();
-        if (savedBalance != calculatedBalance) {
-            return false;
-        }
-        calculatedBalance = calculatedBalance * calculatedBalance;
-        if (calculatedBalance < 1) {
-            return false;
-        } else if (root.getLeft().getKey() > root.getRight().getKey()) {
-            return false;
+        for (AVLTreeNode node : nodes) {
+            int savedBalance = node.getBalance();
+            int calculatedBalance = node.getRight().height() - node.getLeft().height();
+            if (savedBalance != calculatedBalance) {
+                return false;
+            }
+            calculatedBalance = calculatedBalance * calculatedBalance;
+            if (calculatedBalance < 1) {
+                return false;
+            } else if (node.getLeft().getKey() > node.getRight().getKey()) {
+                return false;
+            }
+            return true;
         }
         return true;
     }
 
     public void insert(int key) {
+        AVLTreeNode node = new AVLTreeNode(key);
+        nodes.add(node);
+        nodes.sort(Comparator.comparing(AVLTreeNode::getKey));
+        if (key > root.getKey()) {
+            // insert right
+        } else  {
+            // insert left
+        }
     }
 
     public boolean find(int key) {

@@ -57,8 +57,9 @@ public class AVLTreeNode {
     }
 
     public boolean validate(ArrayList<AVLTreeNode> nodes) {
+        // Check whether the node has been visited before
+        // if so a circle is present
         if (nodes.contains(this)) {
-            // Circle exists
             return false;
         } else {
             nodes.add(this);
@@ -67,12 +68,13 @@ public class AVLTreeNode {
         boolean valid = true;
         int balance = 0;
 
+        // Validate the AVL invariants
         if (hasLeft() && hasRight()) {
             if (left.getKey() > key || right.getKey() < key) {
                 return false;
             }
             balance = right.height() - left.height();
-        } else if (hasLeft()) {
+        } /*else if (hasLeft()) {
             if (left.getKey() > key) {
                 return false;
             }
@@ -82,7 +84,7 @@ public class AVLTreeNode {
                 return false;
             }
             balance = right.height();
-        }
+        }*/
 
         if (balance != getBalance()) {
             return false;

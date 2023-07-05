@@ -1,6 +1,7 @@
 package gad.avl;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class AVLTree {
     private AVLTreeNode root = null;
@@ -21,7 +22,7 @@ public class AVLTree {
     }
 
     public boolean validAVL() {
-        ArrayList<AVLTreeNode> nodes = new ArrayList<>();
+        Set<AVLTreeNode> nodes = new HashSet<>();
         return root.validate(nodes);
     }
 

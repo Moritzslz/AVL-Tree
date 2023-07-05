@@ -65,13 +65,9 @@ public class AVLTreeNode {
         }
 
         boolean valid = true;
-        AVLTreeNode left = null;
-        AVLTreeNode right = null;
+        int balance = 0;
 
         if (hasLeft() && hasRight()) {
-            left = getLeft();
-            right = getRight();
-
             if (left.getKey() > getKey() || right.getKey() > getKey()) {
                 return false;
             }
@@ -80,13 +76,25 @@ public class AVLTreeNode {
                 return false;
             }
 
-            /*if (getBalance()*getBalance() > 1) {
-                return false;
-            }*/
-
-            if (getBalance() != right.height() - left.height()) {
+            balance = right.height() - left.height();
+        } else if (hasLeft()) {
+            if (left.getKey() > getKey()) {
                 return false;
             }
+            balance = 0 - left.height();
+        } else if (hasRight()) {
+            if (right.getKey() > getKey()) {
+                return false;
+            }
+            balance = right.height();
+        }
+
+        if (balance != getBalance()) {
+            return false;
+        }
+
+        if (getBalance() != -1 && getBalance() != 0 && getBalance() != 1) {
+            return false;
         }
 
         // Recursive call

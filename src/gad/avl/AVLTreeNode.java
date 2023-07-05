@@ -57,8 +57,6 @@ public class AVLTreeNode {
     }
 
     public boolean validate(ArrayList<AVLTreeNode> nodes) {
-        boolean valid = true;
-
         // Check for a circle in the AVL tree
         if (hasCircle(nodes)) {
             return false;
@@ -72,13 +70,13 @@ public class AVLTreeNode {
 
         // Recursive call
         if (hasLeft()) {
-            valid = getLeft().validate(nodes);
+            return getLeft().validate(nodes);
         }
-        if (hasRight() && valid) {
-            valid = getRight().validate(nodes);
+        if (hasRight()) {
+            return getRight().validate(nodes);
         }
 
-        return valid;
+        return true;
     }
 
     public boolean find(int key) {
@@ -124,11 +122,22 @@ public class AVLTreeNode {
         // Validate the AVL invariants
         int balance = 0;
 
-        if (left.getKey() > key || right.getKey() < key) {
-            return false;
+        if (hasLeft() && hasRight()) {
+            if (left.getKey() > key || right.getKey() < key) {
+                return false;
+            }
+            balance = right.height() - left.height();
+        } else if (hasLeft()) {
+            if (left.getKey() > key) {
+                return false;
+            }
+            balance = 0 - left.height();
+        } else if (hasRight()) {
+            if (right.getKey() < key) {
+                return false;
+            }
+            balance = right.height();
         }
-        balance = right.height() - left.height();
-
 
         if (balance != this.balance) {
             return false;
@@ -137,6 +146,7 @@ public class AVLTreeNode {
         if (this.balance != -1 && this.balance != 0 && this.balance != 1) {
             return false;
         }
+
         return true;
     }
 

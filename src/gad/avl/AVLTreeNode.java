@@ -58,6 +58,7 @@ public class AVLTreeNode {
 
     public boolean validate(ArrayList<AVLTreeNode> nodes) {
         boolean valid = true;
+        nodes.sort(Comparator.comparing(AVLTreeNode::getBalance));
 
         // Check for a circle in the AVL tree
         if (hasCircle(nodes)) {
@@ -113,7 +114,6 @@ public class AVLTreeNode {
     private boolean hasCircle(ArrayList<AVLTreeNode> nodes) {
         // Check whether the node has been visited before
         // if so a circle is present
-        nodes.sort(Comparator.comparing(AVLTreeNode::getKey));
         if (nodes.contains(this)) {
             return true;
         }

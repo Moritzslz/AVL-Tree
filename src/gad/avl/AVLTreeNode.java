@@ -1,8 +1,6 @@
 package gad.avl;
 
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Set;
 
 public class AVLTreeNode {
     private int key;
@@ -57,7 +55,7 @@ public class AVLTreeNode {
         }
     }
 
-    public boolean validate(Set<AVLTreeNode> nodes) {
+    public boolean validate(ArrayList<AVLTreeNode> nodes) {
         if (this == null) {
             return true;
         }
@@ -110,7 +108,7 @@ public class AVLTreeNode {
         }
     }
 
-    private boolean hasCircle(Set<AVLTreeNode> nodes) {
+    private boolean hasCircle(ArrayList<AVLTreeNode> nodes) {
         // Check whether the node has been visited before if so a circle is present
         if (nodes.contains(this)) {
             return true;

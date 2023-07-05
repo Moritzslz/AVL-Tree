@@ -55,7 +55,7 @@ public class AVLTreeNode {
         }
     }
 
-    public boolean validate(ArrayList<AVLTreeNode> node) {
+    public boolean validate(ArrayList<AVLTreeNode> nodes) {
         boolean valid = true;
 
         if (this == null) {
@@ -63,7 +63,6 @@ public class AVLTreeNode {
         }
 
         // Check for a circle in the AVL tree
-        ArrayList<AVLTreeNode> nodes = new ArrayList<>();
         if (hasCircle(nodes)) {
             return false;
         }
@@ -91,6 +90,22 @@ public class AVLTreeNode {
         return valid;
     }
 
+    private boolean hasCircle(ArrayList<AVLTreeNode> nodes) {
+        // Check whether the node has been visited before if so a circle is present
+        if (nodes.contains(this)) {
+            return true;
+        } else {
+            nodes.add(this);
+            if (left != null && left.hasCircle(nodes)) {
+                return true;
+            }
+            if (right != null && right.hasCircle(nodes)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean find(int key) {
         if (this.key == key) {
             return true;
@@ -112,21 +127,33 @@ public class AVLTreeNode {
         }
     }
 
-    private boolean hasCircle(ArrayList<AVLTreeNode> nodes) {
-        // Check whether the node has been visited before if so a circle is present
-        if (nodes.contains(this)) {
-            return true;
-        } else {
-            nodes.add(this);
-            if (left != null && left.hasCircle(nodes)) {
-                return true;
+    public void insert(AVLTreeNode node) {
+        if (node.getKey() < key) {
+            // Insert left
+            if (left != null) {
+                left.insert(node);
+            } else {
+                left = node;
+                resetBalance(left);
             }
-            if (right != null && right.hasCircle(nodes)) {
-                return true;
+        } else  {
+            // Insert right
+            if (right != null) {
+                right.insert(node);
+            } else {
+                right = node;
+                resetBalance(right);
             }
         }
-        return false;
     }
+
+    public void resetBalance (AVLTreeNode node) {
+        int leftHeight = (node.getLeft() != null) ? node.getLeft().height() : 0;
+        int rightHeight = (node.getRight() != null) ? node.getRight().height() : 0;
+        int calculatedBalance = rightHeight - leftHeight;
+        node.setBalance(calculatedBalance);
+    }
+
 
     /**
      * Diese Methode wandelt den Baum in das Graphviz-Format um.

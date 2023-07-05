@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class AVLTree {
     private AVLTreeNode root = null;
-    private  ArrayList<AVLTreeNode> nodes = new ArrayList<>();
 
     public AVLTree() {
     }
@@ -22,16 +21,20 @@ public class AVLTree {
     }
 
     public boolean validAVL() {
-        nodes.clear();
+        ArrayList<AVLTreeNode> nodes = new ArrayList<>();
         return root.validate(nodes);
     }
 
     public void insert(int key) {
+        // Create and insert new node recursively
         AVLTreeNode node = new AVLTreeNode(key);
-        if (key < root.getKey()) {
-            // Insert left
-        } else  {
-            // Insert right
+        root.insert(node);
+
+        // Re-balance Tree is necessary
+        if (validAVL()) {
+            return;
+        } else {
+
         }
     }
 

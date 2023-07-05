@@ -74,7 +74,7 @@ public class AVLTreeNode {
                 return false;
             }
             balance = right.height() - left.height();
-        } /*else if (hasLeft()) {
+        } else if (hasLeft()) {
             if (left.getKey() > key) {
                 return false;
             }
@@ -84,7 +84,7 @@ public class AVLTreeNode {
                 return false;
             }
             balance = right.height();
-        }*/
+        }
 
         if (balance != getBalance()) {
             return false;
@@ -98,7 +98,7 @@ public class AVLTreeNode {
         if (hasLeft()) {
             valid = getLeft().validate(nodes);
         }
-        if (hasRight() && valid) {
+        if (hasRight()) {
             valid = getRight().validate(nodes);
         }
 

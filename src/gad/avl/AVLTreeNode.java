@@ -62,6 +62,8 @@ public class AVLTreeNode {
         // Check for a circle in the AVL tree
         if (hasCircle(nodes)) {
             return false;
+        } else {
+            nodes.add(this);
         }
 
         if (!isCorrect()) {
@@ -114,8 +116,6 @@ public class AVLTreeNode {
         nodes.sort(Comparator.comparing(AVLTreeNode::getKey));
         if (nodes.contains(this)) {
             return true;
-        } else {
-            nodes.add(this);
         }
         return false;
     }
@@ -125,12 +125,12 @@ public class AVLTreeNode {
         int balance = 0;
 
         if (hasLeft() && hasRight()) {
-            if (left.getKey() >= key || right.getKey() < key) {
+            if (left.getKey() > key || right.getKey() < key) {
                 return false;
             }
             balance = right.height() - left.height();
         } else if (hasLeft()) {
-            if (left.getKey() >= key) {
+            if (left.getKey() > key) {
                 return false;
             }
             balance = 0 - left.height();

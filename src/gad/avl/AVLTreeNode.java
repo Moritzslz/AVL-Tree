@@ -57,41 +57,14 @@ public class AVLTreeNode {
     }
 
     public boolean validate(ArrayList<AVLTreeNode> nodes) {
-        // Check whether the node has been visited before
-        // if so a circle is present
-        nodes.sort(Comparator.comparing(AVLTreeNode::getKey));
-        if (nodes.contains(this)) {
-            return false;
-        } else {
-            nodes.add(this);
-        }
-
         boolean valid = true;
-        int balance = 0;
 
-        // Validate the AVL invariants
-        if (hasLeft() && hasRight()) {
-            if (left.getKey() > key || right.getKey() < key) {
-                return false;
-            }
-            balance = right.height() - left.height();
-        } else if (hasLeft()) {
-            if (left.getKey() > key) {
-                return false;
-            }
-            balance = 0 - left.height();
-        } else if (hasRight()) {
-            if (right.getKey() < key) {
-                return false;
-            }
-            balance = right.height();
-        }
-
-        if (balance != getBalance()) {
+        // Check for a circle in the AVL tree
+        if (hasCircle(nodes)) {
             return false;
         }
 
-        if (balance != -1 && balance != 0 && balance != 1) {
+        if (!isCorrect()) {
             return false;
         }
 
@@ -127,15 +100,15 @@ public class AVLTreeNode {
         }
     }
 
-    public boolean hasRight() {
+    private boolean hasRight() {
         return (getRight() != null);
     }
 
-    public boolean hasLeft() {
+    private boolean hasLeft() {
         return (getLeft() != null);
     }
 
-    public boolean hasCircle(ArrayList<AVLTreeNode> nodes) {
+    private boolean hasCircle(ArrayList<AVLTreeNode> nodes) {
         // Check whether the node has been visited before
         // if so a circle is present
         nodes.sort(Comparator.comparing(AVLTreeNode::getKey));
@@ -146,6 +119,38 @@ public class AVLTreeNode {
         }
         return false;
     }
+
+    public boolean isCorrect() {
+        // Validate the AVL invariants
+        int balance = 0;
+
+        if (hasLeft() && hasRight()) {
+            if (left.getKey() >= key || right.getKey() <= key) {
+                return false;
+            }
+            balance = right.height() - left.height();
+        } else if (hasLeft()) {
+            if (left.getKey() >= key) {
+                return false;
+            }
+            balance = 0 - left.height();
+        } else if (hasRight()) {
+            if (right.getKey() <= key) {
+                return false;
+            }
+            balance = right.height();
+        }
+
+        if (balance != getBalance()) {
+            return false;
+        }
+
+        if (balance != -1 && balance != 0 && balance != 1) {
+            return false;
+        }
+        return true;
+    }
+
 
     /**
      * Diese Methode wandelt den Baum in das Graphviz-Format um.

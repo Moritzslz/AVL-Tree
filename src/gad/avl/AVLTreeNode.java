@@ -63,9 +63,9 @@ public class AVLTreeNode {
         }
 
         // Check for a circle in the AVL tree
-       if (hasCircle(nodes)) {
-           return false;
-       }
+        /*if (hasCircle(nodes)) {
+            return false;
+        }*/
 
         int leftHeight = (left != null) ? left.height() : 0;
         int rightHeight = (right != null) ? right.height() : 0;

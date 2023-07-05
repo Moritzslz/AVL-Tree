@@ -103,11 +103,32 @@ public class AVLTreeNode {
         return valid;
     }
 
-    private boolean hasRight() {
+    public boolean find(int key) {
+        if (this.key == key) {
+            return true;
+        }
+        if (key < this.key) {
+            // Search left side
+            if (hasLeft()) {
+                return left.find(key);
+            } else {
+                return false;
+            }
+        } else {
+            // Search right side
+            if (hasRight()) {
+                return right.find(key);
+            } else {
+                return false;
+            }
+        }
+    }
+
+    public boolean hasRight() {
         return (getRight() != null);
     }
 
-    private boolean hasLeft() {
+    public boolean hasLeft() {
         return (getLeft() != null);
     }
 

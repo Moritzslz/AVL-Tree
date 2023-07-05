@@ -37,12 +37,7 @@ public class AVLTree {
     }
 
     public boolean find(int key) {
-        if (key < root.getKey()) {
-            // Search left side
-        } else {
-            // Search right side
-        }
-        return false;
+       return root.find(key);
     }
 
     /**

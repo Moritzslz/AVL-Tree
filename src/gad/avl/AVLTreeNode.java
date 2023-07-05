@@ -125,7 +125,7 @@ public class AVLTreeNode {
         int balance = 0;
 
         if (hasLeft() && hasRight()) {
-            if (left.getKey() >= key || right.getKey() <= key) {
+            if (left.getKey() >= key || right.getKey() < key) {
                 return false;
             }
             balance = right.height() - left.height();
@@ -135,7 +135,7 @@ public class AVLTreeNode {
             }
             balance = 0 - left.height();
         } else if (hasRight()) {
-            if (right.getKey() <= key) {
+            if (right.getKey() < key) {
                 return false;
             }
             balance = right.height();

@@ -57,6 +57,8 @@ public class AVLTreeNode {
     }
 
     public boolean validate(ArrayList<AVLTreeNode> nodes) {
+        boolean valid = true;
+
         // Check for a circle in the AVL tree
         if (hasCircle(nodes)) {
             return false;
@@ -70,13 +72,13 @@ public class AVLTreeNode {
 
         // Recursive call
         if (hasLeft()) {
-            return getLeft().validate(nodes);
+            valid = getLeft().validate(nodes);
         }
-        if (hasRight()) {
-            return getRight().validate(nodes);
+        if (hasRight() && valid) {
+            valid = getRight().validate(nodes);
         }
 
-        return true;
+        return valid;
     }
 
     public boolean find(int key) {

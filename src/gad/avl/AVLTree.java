@@ -22,6 +22,7 @@ public class AVLTree {
     }
 
     public boolean validAVL() {
+        nodes.clear();
         return root.validate(nodes);
     }
 

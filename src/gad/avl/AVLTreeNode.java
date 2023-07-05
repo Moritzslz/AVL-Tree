@@ -72,17 +72,20 @@ public class AVLTreeNode {
             calculatedBalance = getLeft().height();
         } else if (getLeft() != null && getRight() != null) {
             calculatedBalance = getRight().height() - getLeft().height();
-            if (getLeft().getKey() > getRight().getKey()) {
+            if (getLeft().getKey() > getRight().getKey() && getRight().getKey() < left.getKey()) {
                 return false;
             }
         }
         if (savedBalance != calculatedBalance) {
             return false;
         }
-        calculatedBalance = calculatedBalance * calculatedBalance;
-        if (calculatedBalance > 1) {
+        if (calculatedBalance != 0 && calculatedBalance != 1 && calculatedBalance != -1) {
             return false;
         }
+       /* calculatedBalance = calculatedBalance * calculatedBalance;
+        if (calculatedBalance > 1) {
+            return false;
+        }*/
         if (getLeft() != null) {
             valid = getLeft().validate(nodes);
         }

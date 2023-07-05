@@ -56,7 +56,7 @@ public class AVLTreeNode {
     }
 
     public boolean validate(ArrayList<AVLTreeNode> nodes) {
-        if (this == null) {
+        if (this == null || (left == null && right == null)) {
             return true;
         }
 
@@ -73,7 +73,7 @@ public class AVLTreeNode {
         if (balance != calculatedBalance) {
             return false;
         }
-        if (calculatedBalance > 1 || calculatedBalance < -1) {
+        if (Math.abs(calculatedBalance) > 1) {
             return false;
         }
         if (left != null && left.getKey() > key) {

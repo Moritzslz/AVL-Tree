@@ -63,37 +63,47 @@ public class AVLTreeNode {
         } else {
             nodes.add(this);
         }
+
         boolean valid = true;
-        int savedBalance = getBalance();
-        int calculatedBalance = 0;
-        if (getLeft() == null && getRight() != null) {
-            calculatedBalance = getRight().height();
-        } else if (getRight() == null && getLeft() != null) {
-            calculatedBalance = getLeft().height();
-        } else if (getLeft() != null && getRight() != null) {
-            calculatedBalance = getRight().height() - getLeft().height();
-            if (getLeft().getKey() > getRight().getKey() && getRight().getKey() < left.getKey()) {
+        AVLTreeNode left = null;
+        AVLTreeNode right = null;
+
+        if (hasLeft() && hasRight()) {
+            left = getLeft();
+            right = getRight();
+            if (left.getKey() > right.getKey()) {
+                return false;
+            }
+
+            if (getBalance()*getBalance() > 1) {
+                return false;
+            } else if ((right.height() - left.height())*(right.height() - left.height()) > 1) {
+                return false;
+            }
+
+            if (getBalance() != right.height() - left.height()) {
                 return false;
             }
         }
-        if (savedBalance != calculatedBalance) {
-            return false;
-        }
-        if (calculatedBalance != 0 && calculatedBalance != 1 && calculatedBalance != -1) {
-            return false;
-        }
-       /* calculatedBalance = calculatedBalance * calculatedBalance;
-        if (calculatedBalance > 1) {
-            return false;
-        }*/
-        if (getLeft() != null) {
+
+        // Recursive call
+        if (hasLeft()) {
             valid = getLeft().validate(nodes);
         }
-        if (getRight() != null && valid) {
+        if (hasRight() && valid) {
             valid = getRight().validate(nodes);
         }
+
         return valid;
-   }
+    }
+
+    private boolean hasRight() {
+        return (getRight() != null);
+    }
+
+    private boolean hasLeft() {
+        return (getLeft() != null);
+    }
 
     /**
      * Diese Methode wandelt den Baum in das Graphviz-Format um.

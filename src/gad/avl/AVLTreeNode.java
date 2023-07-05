@@ -64,7 +64,12 @@ public class AVLTreeNode {
         if (hasCircle(nodes)) {
             return false;
         } else {
-            nodes.add(this);
+            if (hasLeft() && left.hasCircle(nodes)) {
+                return false;
+            }
+            if (hasRight() && right.hasCircle(nodes)) {
+                return false;
+            }
         }
 
         if (!isCorrect()) {
@@ -116,6 +121,8 @@ public class AVLTreeNode {
         // if so a circle is present
         if (nodes.contains(this)) {
             return true;
+        } else {
+            nodes.add(this);
         }
         return false;
     }

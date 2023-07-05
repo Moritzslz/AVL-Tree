@@ -62,6 +62,7 @@ public class AVLTreeNode {
 
         // Check for a circle in the AVL tree
         if (hasCircle(nodes)) {
+            nodes.add(this);
             return false;
         } else {
             nodes.add(this);

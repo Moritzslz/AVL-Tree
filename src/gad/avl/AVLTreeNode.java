@@ -72,14 +72,14 @@ public class AVLTreeNode {
         }
 
         // Recursive call
-       /* if (hasLeft()) {
+        if (hasLeft()) {
             valid = left.validate(nodes);
         }
         if (hasRight() && valid) {
             valid = right.validate(nodes);
-        }*/
+        }
 
-        return left.validate(nodes) && right.validate(nodes);
+        return valid;
     }
 
     public boolean find(int key) {

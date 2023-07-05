@@ -1,5 +1,8 @@
 package gad.avl;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class AVLTreeNode {
     private int key;
     private int balance = 0;
@@ -53,14 +56,20 @@ public class AVLTreeNode {
         }
     }
 
-    public boolean validate() {
+    public boolean validate(ArrayList<AVLTreeNode> nodes) {
+        if (nodes.contains(this)) {
+            // Circle exists
+            return false;
+        } else {
+            nodes.add(this);
+        }
         boolean valid = true;
         int savedBalance = getBalance();
         int calculatedBalance = 0;
         if (getLeft() == null && getRight() != null) {
-            calculatedBalance = getRight().height() + 1;
+            calculatedBalance = getRight().height();
         } else if (getRight() == null && getLeft() != null) {
-            calculatedBalance = getLeft().height() + 1;
+            calculatedBalance = getLeft().height();
         } else if (getLeft() != null && getRight() != null) {
             calculatedBalance = getRight().height() - getLeft().height();
             if (getLeft().getKey() > getRight().getKey()) {
@@ -75,10 +84,10 @@ public class AVLTreeNode {
             return false;
         }
         if (getLeft() != null) {
-            valid = getLeft().validate();
+            valid = getLeft().validate(nodes);
         }
         if (getRight() != null && valid) {
-            valid = getRight().validate();
+            valid = getRight().validate(nodes);
         }
         return valid;
    }

@@ -122,16 +122,24 @@ public class AVLTreeNode {
 
     public boolean isCorrect() {
         // Validate the AVL invariants
-        if (balance != right.height() - left.height()) {
+        int rightHeight = 0;
+        int leftHeight = 0;
+        if (hasRight()) {
+            rightHeight = right.height();
+        }
+        if (hasLeft()) {
+            leftHeight = left.height();
+        }
+        if (balance != rightHeight - leftHeight) {
             return false;
         }
         if (Math.abs(balance) > 1) {
             return false;
         }
-        if (left.key > key) {
-            return false;
+        if (hasLeft() && left.key > key) {
+           return false;
         }
-        if (right.key < key) {
+        if (hasRight() && right.key < key) {
             return false;
         }
         return true;

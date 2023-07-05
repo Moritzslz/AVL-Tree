@@ -56,7 +56,9 @@ public class AVLTreeNode {
     }
 
     public boolean validate(ArrayList<AVLTreeNode> nodes) {
-        if (this == null || (left == null && right == null)) {
+        boolean valid = true;
+
+        if (this == null) {
             return true;
         }
 
@@ -84,7 +86,8 @@ public class AVLTreeNode {
         }
 
         // Recursive call
-        return left.validate(nodes) && right.validate(nodes);
+        valid = left.validate(nodes) && right.validate(nodes);
+        return valid;
     }
 
     public boolean find(int key) {

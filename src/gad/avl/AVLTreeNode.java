@@ -141,11 +141,11 @@ public class AVLTreeNode {
             balance = right.height();
         }
 
-        if (balance != getBalance()) {
+        if (balance != this.balance) {
             return false;
         }
 
-        if (balance != -1 && balance != 0 && balance != 1) {
+        if (this.balance != -1 && this.balance != 0 && this.balance != 1) {
             return false;
         }
         return true;

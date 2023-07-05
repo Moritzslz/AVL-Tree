@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class AVLTree {
     private AVLTreeNode root = null;
+    private  ArrayList<AVLTreeNode> nodes = new ArrayList<>();
 
     public AVLTree() {
     }
@@ -21,7 +22,6 @@ public class AVLTree {
     }
 
     public boolean validAVL() {
-        ArrayList<AVLTreeNode> nodes = new ArrayList<>();
         return root.validate(nodes);
     }
 

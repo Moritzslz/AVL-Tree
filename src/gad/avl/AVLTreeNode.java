@@ -55,7 +55,7 @@ public class AVLTreeNode {
         }
     }
 
-    public boolean validate(ArrayList<AVLTreeNode> nodes) {
+    public boolean validate(ArrayList<AVLTreeNode> node) {
         boolean valid = true;
 
         if (this == null) {
@@ -63,9 +63,10 @@ public class AVLTreeNode {
         }
 
         // Check for a circle in the AVL tree
-        /*if (hasCircle(nodes)) {
+        ArrayList<AVLTreeNode> nodes = new ArrayList<>();
+        if (hasCircle(nodes)) {
             return false;
-        }*/
+        }
 
         int leftHeight = (left != null) ? left.height() : 0;
         int rightHeight = (right != null) ? right.height() : 0;

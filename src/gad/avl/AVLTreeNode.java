@@ -71,13 +71,16 @@ public class AVLTreeNode {
         if (hasLeft() && hasRight()) {
             left = getLeft();
             right = getRight();
+
+            if (left.getKey() > getKey() || right.getKey() > getKey()) {
+                return false;
+            }
+
             if (left.getKey() > right.getKey()) {
                 return false;
             }
 
             if (getBalance()*getBalance() > 1) {
-                return false;
-            } else if ((right.height() - left.height())*(right.height() - left.height()) > 1) {
                 return false;
             }
 

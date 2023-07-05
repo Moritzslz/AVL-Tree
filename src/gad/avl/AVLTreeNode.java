@@ -90,7 +90,7 @@ public class AVLTreeNode {
             return false;
         }
 
-        if (Math.abs(balance) > 1) {
+        if (balance != -1 && balance != 0 && balance != 1) {
             return false;
         }
 
@@ -98,7 +98,7 @@ public class AVLTreeNode {
         if (hasLeft()) {
             valid = getLeft().validate(nodes);
         }
-        if (hasRight()) {
+        if (hasRight() && valid) {
             valid = getRight().validate(nodes);
         }
 

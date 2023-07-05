@@ -104,11 +104,11 @@ public class AVLTreeNode {
     }
 
     private boolean hasRight() {
-        return (getRight() != null);
+        return right != null;
     }
 
     private boolean hasLeft() {
-        return (getLeft() != null);
+        return left != null;
     }
 
     private boolean hasCircle(ArrayList<AVLTreeNode> nodes) {

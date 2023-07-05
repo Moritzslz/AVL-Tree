@@ -63,16 +63,9 @@ public class AVLTreeNode {
         }
 
         // Check for a circle in the AVL tree
-        if (hasCircle(nodes)) {
-            return false;
-        } else {
-            if ((left != null) && left.hasCircle(nodes)) {
-                return false;
-            }
-            if ((right != null) && right.hasCircle(nodes)) {
-                return false;
-            }
-        }
+       if (hasCircle(nodes)) {
+           return false;
+       }
 
         int leftHeight = (left != null) ? left.height() : 0;
         int rightHeight = (right != null) ? right.height() : 0;
@@ -118,12 +111,17 @@ public class AVLTreeNode {
     }
 
     private boolean hasCircle(Set<AVLTreeNode> nodes) {
-        // Check whether the node has been visited before
-        // if so a circle is present
+        // Check whether the node has been visited before if so a circle is present
         if (nodes.contains(this)) {
             return true;
         } else {
             nodes.add(this);
+            if (left != null && left.hasCircle(nodes)) {
+                return true;
+            }
+            if (right != null && right.hasCircle(nodes)) {
+                return true;
+            }
         }
         return false;
     }

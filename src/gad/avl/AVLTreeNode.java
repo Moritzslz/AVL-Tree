@@ -58,8 +58,6 @@ public class AVLTreeNode {
     }
 
     public boolean validate(Set<AVLTreeNode> nodes) {
-        boolean valid = true;
-
         if (this == null) {
             return true;
         }
@@ -68,27 +66,34 @@ public class AVLTreeNode {
         if (hasCircle(nodes)) {
             return false;
         } else {
-            if (hasLeft() && left.hasCircle(nodes)) {
+            if ((left != null) && left.hasCircle(nodes)) {
                 return false;
             }
-            if (hasRight() && right.hasCircle(nodes)) {
+            if ((right != null) && right.hasCircle(nodes)) {
                 return false;
             }
         }
 
-        if (!isCorrect()) {
+        int leftHeight = (left != null) ? left.height() : 0;
+        int rightHeight = (right != null) ? right.height() : 0;
+        int calculatedBalance = rightHeight - leftHeight;
+
+        // Check if the AVL invariants are met
+        if (balance != calculatedBalance) {
+            return false;
+        }
+        if (Math.abs(balance) > 1) {
+            return false;
+        }
+        if (left != null && left.getKey() > key) {
+            return false;
+        }
+        if (right != null && right.getKey() < key) {
             return false;
         }
 
         // Recursive call
-        if (hasLeft()) {
-            valid = left.validate(nodes);
-        }
-        if (hasRight() && valid) {
-            valid = right.validate(nodes);
-        }
-
-        return valid;
+        return left.validate(nodes) && right.validate(nodes);
     }
 
     public boolean find(int key) {
@@ -97,14 +102,14 @@ public class AVLTreeNode {
         }
         if (key < this.key) {
             // Search left side
-            if (hasLeft()) {
+            if (left != null) {
                 return left.find(key);
             } else {
                 return false;
             }
         } else {
             // Search right side
-            if (hasRight()) {
+            if (right != null) {
                 return right.find(key);
             } else {
                 return false;
@@ -112,15 +117,7 @@ public class AVLTreeNode {
         }
     }
 
-    private boolean hasRight() {
-        return right != null;
-    }
-
-    private boolean hasLeft() {
-        return left != null;
-    }
-
-    private boolean hasCircle( Set<AVLTreeNode> nodes) {
+    private boolean hasCircle(Set<AVLTreeNode> nodes) {
         // Check whether the node has been visited before
         // if so a circle is present
         if (nodes.contains(this)) {
@@ -130,32 +127,6 @@ public class AVLTreeNode {
         }
         return false;
     }
-
-    public boolean isCorrect() {
-        // Validate the AVL invariants
-        int rightHeight = 0;
-        int leftHeight = 0;
-        if (hasRight()) {
-            rightHeight = right.height();
-        }
-        if (hasLeft()) {
-            leftHeight = left.height();
-        }
-        if (balance != rightHeight - leftHeight) {
-            return false;
-        }
-        if (Math.abs(balance) > 1) {
-            return false;
-        }
-        if (hasLeft() && left.key > key) {
-           return false;
-        }
-        if (hasRight() && right.key < key) {
-            return false;
-        }
-        return true;
-    }
-
 
     /**
      * Diese Methode wandelt den Baum in das Graphviz-Format um.

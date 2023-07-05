@@ -124,22 +124,11 @@ public class AVLTreeNode {
         // Validate the AVL invariants
         int balance = 0;
 
-        if (hasLeft() && hasRight()) {
-            if (left.getKey() > key || right.getKey() < key) {
-                return false;
-            }
-            balance = right.height() - left.height();
-        } else if (hasLeft()) {
-            if (left.getKey() > key) {
-                return false;
-            }
-            balance = 0 - left.height();
-        } else if (hasRight()) {
-            if (right.getKey() < key) {
-                return false;
-            }
-            balance = right.height();
+        if (left.getKey() > key || right.getKey() < key) {
+            return false;
         }
+        balance = right.height() - left.height();
+
 
         if (balance != this.balance) {
             return false;

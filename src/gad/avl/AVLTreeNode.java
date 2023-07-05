@@ -76,9 +76,9 @@ public class AVLTreeNode {
                 return false;
             }
 
-            if (left.getKey() > right.getKey()) {
+            /*if (left.getKey() > right.getKey()) {
                 return false;
-            }
+            }*/
 
             if (getBalance()*getBalance() > 1) {
                 return false;

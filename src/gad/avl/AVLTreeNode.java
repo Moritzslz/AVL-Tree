@@ -1,7 +1,7 @@
 package gad.avl;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class AVLTreeNode {
     private int key;
@@ -57,16 +57,13 @@ public class AVLTreeNode {
     }
 
     public boolean validate(ArrayList<AVLTreeNode> nodes) {
-        // Check whether the node has been visited before
-        // if so a circle is present
-        if (nodes.contains(this)) {
-            return false;
-        } else {
-            nodes.add(this);
-        }
-
         boolean valid = true;
         int balance = 0;
+
+        // Check for a circle in the AVL tree
+        if (hasCircle(nodes)) {
+            return false;
+        }
 
         // Validate the AVL invariants
         if (hasLeft() && hasRight()) {
@@ -132,6 +129,18 @@ public class AVLTreeNode {
 
     public boolean hasLeft() {
         return (getLeft() != null);
+    }
+
+    public boolean hasCircle(ArrayList<AVLTreeNode> nodes) {
+        // Check whether the node has been visited before
+        // if so a circle is present
+        nodes.sort(Comparator.comparing(AVLTreeNode::getKey));
+        if (nodes.contains(this)) {
+            return true;
+        } else {
+            nodes.add(this);
+        }
+        return false;
     }
 
     /**

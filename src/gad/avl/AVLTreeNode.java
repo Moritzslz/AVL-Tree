@@ -55,11 +55,16 @@ public class AVLTreeNode {
         }
     }
 
-    public boolean validate() {
+    public boolean validate(ArrayList<AVLTreeNode> nodes) {
         boolean valid = true;
 
         if (this == null) {
             return true;
+        }
+
+        // Check for a circle
+        if (hasCircle(nodes)) {
+            return false;
         }
 
         int leftHeight = (getLeft() != null) ? getLeft().height() : 0;
@@ -81,21 +86,17 @@ public class AVLTreeNode {
         }
 
         // Recursive call
-        valid = getLeft().validate() && getRight().validate();
+        valid = getLeft().validate(nodes) && getRight().validate(nodes);
         return valid;
     }
 
     public boolean hasCircle(ArrayList<AVLTreeNode> nodes) {
-        // Check whether the node has been visited before if so a circle is present
-        if (this == null) {
-            return false;
-        }
         if (nodes.contains(this)) {
             return true;
         } else {
             nodes.add(this);
         }
-        return getLeft().hasCircle(nodes) && getRight().hasCircle(nodes);
+        return false;
     }
 
     public boolean find(int key) {

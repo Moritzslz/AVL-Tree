@@ -91,9 +91,9 @@ public class AVLTreeNode {
     }
 
     public boolean hasCircle(ArrayList<AVLTreeNode> nodes) {
-        if (nodes.contains(this)) {
-            return true;
-        } else {
+       // if (nodes.contains(this)) {
+       //     return true;
+       // } else {
             nodes.add(this);
             if (getLeft() != null && getLeft().hasCircle(nodes)) {
                 return true;
@@ -101,7 +101,7 @@ public class AVLTreeNode {
             if (getRight() != null && getRight().hasCircle(nodes)) {
                 return true;
             }
-        }
+        // }
         return false;
     }
 

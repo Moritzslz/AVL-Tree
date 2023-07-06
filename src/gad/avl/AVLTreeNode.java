@@ -86,21 +86,14 @@ public class AVLTreeNode {
     }
 
     public boolean hasCircle(ArrayList<AVLTreeNode> nodes) {
+        // Check whether the node has been visited before if so a circle is present
         if (this == null) {
             return false;
         }
-
-        // Check whether the node has been visited before if so a circle is present
         if (nodes.contains(this)) {
             return true;
         } else {
             nodes.add(this);
-            if (left != null && left.hasCircle(nodes)) {
-                return true;
-            }
-            if (right != null && right.hasCircle(nodes)) {
-                return true;
-            }
         }
         return left.hasCircle(nodes) && right.hasCircle(nodes);
     }

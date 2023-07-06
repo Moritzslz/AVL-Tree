@@ -56,33 +56,6 @@ public class AVLTreeNode {
     }
 
     public boolean validate(ArrayList<AVLTreeNode> nodes) {
-        if (nodes.contains(this)) {
-            return false;
-        }
-        nodes.add(this);
-
-        int leftHeight = (left != null) ? left.height() : 0;
-        int rightHeight = (right != null) ? right.height() : 0;
-
-        if (Math.abs(balance) > 1 || Math.abs(balance) != (rightHeight - leftHeight)) {
-            return false;
-        }
-
-        boolean validLeft = (left == null) || (left.validate(nodes) && left.getKey() <= key);
-        boolean validRight = (right == null) || (right.validate(nodes) && right.getKey() >= key);
-
-        return validLeft && validRight;
-    }
-
-    public boolean hasCircle(ArrayList<AVLTreeNode> visited) {
-        if (visited.contains(this)) {
-            return true;
-        } else {
-            visited.add(this);
-            boolean circleLeft = (left != null) && left.hasCircle(new ArrayList<>(visited));
-            boolean circleRight = (right != null) && right.hasCircle(new ArrayList<>(visited));
-            return circleLeft || circleRight;
-        }
     }
 
     public boolean find(int key) {
@@ -107,32 +80,6 @@ public class AVLTreeNode {
     }
 
     public void insert(AVLTreeNode node) {
-        if (node.getKey() < key) {
-            if (left != null) {
-                left.insert(node);
-            } else {
-                left = node;
-            }
-        } else if (node.getKey() > key) {
-            if (right != null) {
-                right.insert(node);
-            } else {
-                right = node;
-            }
-        }
-    }
-
-    public int calculateBalance() {
-        int leftHeight = (left != null) ? left.height() : 0;
-        int rightHeight = (right != null) ? right.height() : 0;
-        return rightHeight - leftHeight;
-    }
-
-    public void resetBalance (AVLTreeNode node) {
-        int leftHeight = (node.getLeft() != null) ? node.getLeft().height() : 0;
-        int rightHeight = (node.getRight() != null) ? node.getRight().height() : 0;
-        int calculatedBalance = rightHeight - leftHeight;
-        node.setBalance(calculatedBalance);
     }
 
 

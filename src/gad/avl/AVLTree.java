@@ -24,11 +24,13 @@ public class AVLTree {
     public boolean validAVL() {
         ArrayList<AVLTreeNode> leftTree = new ArrayList<>();
         ArrayList<AVLTreeNode> rightTree = new ArrayList<>();
+        ArrayList<AVLTreeNode> visited = new ArrayList<>();
         leftTree.add(root);
         rightTree.add(root);
+        visited.add(root);
 
-        boolean leftValid = root.getLeft() != null ? root.getLeft().validateLeft(leftTree, root.getKey() - 1) : true;
-        boolean rightValid = root.getRight() != null ? root.getRight().validateRight(rightTree, root.getKey()) : true;
+        boolean leftValid = root.getLeft() != null ? root.getLeft().validateLeft(visited, root.getKey() - 1) : true;
+        boolean rightValid = root.getRight() != null ? root.getRight().validateRight(visited, root.getKey()) : true;
 
         return leftValid && rightValid;
     }

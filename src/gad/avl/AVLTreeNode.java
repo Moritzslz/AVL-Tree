@@ -68,7 +68,7 @@ public class AVLTreeNode {
         if (node.getBalance() != calculatedBalance) {
             return false;
         }
-        if (Math.abs(calculatedBalance) > 1) {
+        if (calculatedBalance > 1 || calculatedBalance < -1) {
             return false;
         }
         if (node.getLeft() != null && node.getLeft().getKey() > node.getKey()) {

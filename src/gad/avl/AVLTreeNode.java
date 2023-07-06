@@ -59,7 +59,7 @@ public class AVLTreeNode {
         boolean valid = true;
 
         if (this == null) {
-            return true;
+            return false;
         }
 
         // Check for a circle in the AVL tree

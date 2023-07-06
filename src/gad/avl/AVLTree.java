@@ -70,8 +70,6 @@ public class AVLTree {
         four.setBalance(0);
         five.setBalance(0);
 
-
-
         System.out.println(avlTree.dot());
         System.out.println(avlTree.validAVL()); // Expected output: true
     }

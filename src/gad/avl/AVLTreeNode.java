@@ -56,6 +56,7 @@ public class AVLTreeNode {
     }
 
     public boolean validate(ArrayList<AVLTreeNode> nodes) {
+        return true;
     }
 
     public boolean find(int key) {

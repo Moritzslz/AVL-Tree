@@ -57,6 +57,7 @@ public class AVLTreeNode {
 
     public boolean validateLeft(ArrayList<AVLTreeNode> visited, int allowedMax) {
         if (getKey() > allowedMax) {
+            System.out.println("To big value in left subtree: " + getKey());
             return false;
         }
 
@@ -94,6 +95,7 @@ public class AVLTreeNode {
 
     public boolean validateRight(ArrayList<AVLTreeNode> visited, int allowedMin) {
         if (getKey() < allowedMin) {
+            System.out.println("To small value in right subtree: " + getKey());
             return false;
         }
 
@@ -134,12 +136,12 @@ public class AVLTreeNode {
             return true;
         } else {
             visited.add(this);
-           /* if (getLeft() != null && getLeft().hasCircle(visited)) {
+            if (getLeft() != null && visited.contains(getLeft())) {
                 return true;
             }
-            if (getRight() != null && getRight().hasCircle(visited)) {
+            if (getRight() != null && visited.contains(getRight())) {
                 return true;
-            }*/
+            }
         }
         return false;
     }

@@ -22,7 +22,9 @@ public class AVLTree {
 
     public boolean validAVL() {
         ArrayList<AVLTreeNode> nodes = new ArrayList<>();
-        return root.validate(nodes);
+        boolean valid = root.validate();
+        boolean hasCircle = root.hasCircle(nodes);
+        return valid && !hasCircle;
     }
 
     public void insert(int key) {

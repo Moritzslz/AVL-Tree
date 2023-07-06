@@ -65,26 +65,26 @@ public class AVLTreeNode {
             return false;
         }
 
-        int leftHeight = (getLeft() != null) ? getLeft().height() : 0;
-        int rightHeight = (getRight() != null) ? getRight().height() : 0;
+        int leftHeight = (node.getLeft() != null) ? node.getLeft().height() : 0;
+        int rightHeight = (node.getRight() != null) ? node.getRight().height() : 0;
         int calculatedBalance = rightHeight - leftHeight;
 
         // Check if the AVL invariants are met
-        if (getBalance() != calculatedBalance) {
+        if (node.getBalance() != calculatedBalance) {
             return false;
         }
         if (Math.abs(calculatedBalance) > 1) {
             return false;
         }
-        if (getLeft() != null && getLeft().getKey() > getKey()) {
+        if (node.getLeft() != null && node.getLeft().getKey() > node.getKey()) {
             return false;
         }
-        if (getRight() != null && getRight().getKey() < getKey()) {
+        if (node.getRight() != null && node.getRight().getKey() < node.getKey()) {
             return false;
         }
 
         // Recursive call
-        return getLeft().validate(getLeft(), visited) && getRight().validate(getRight(), visited);
+        return node.getLeft().validate(node.getLeft(), visited) && node.getRight().validate(node.getRight(), visited);
     }
 
     public boolean hasCircle(ArrayList<AVLTreeNode> visited) {

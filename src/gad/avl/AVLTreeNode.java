@@ -55,8 +55,93 @@ public class AVLTreeNode {
         }
     }
 
-    public boolean validate(ArrayList<AVLTreeNode> nodes) {
-        return true;
+    public boolean validateLeft(ArrayList<AVLTreeNode> visited, int allowedMax) {
+        if (getKey() > allowedMax) {
+            return false;
+        }
+
+        if (hasCircle(visited)) {
+            System.out.println("Has circle: " + hasCircle(visited));
+            return false;
+        }
+
+        int leftHeight = getLeft() != null ? getLeft().height() : 0;
+        int rightHeight = getRight() != null ? getRight().height() : 0;
+        int calculatedBalance = rightHeight - leftHeight;
+
+        if (getBalance() != calculatedBalance) {
+            System.out.println("Wrong saved balance");
+            return false;
+        }
+        if (Math.abs(getBalance()) > 1) {
+            System.out.println("Balance to big");
+            return false;
+        }
+        if (getLeft() != null && getLeft().getKey() > getKey()) {
+            System.out.println("Left key bigger current key");
+            return false;
+        }
+        if (getRight() != null && getRight().getKey() < getKey()) {
+            System.out.println("Right key smaller current key");
+            return false;
+        }
+
+        boolean left = getLeft() != null ? getLeft().validateLeft(visited, allowedMax) : true;
+        boolean right = getRight() != null ? getRight().validateLeft(visited, allowedMax) : true;
+
+        return left && right;
+    }
+
+    public boolean validateRight(ArrayList<AVLTreeNode> visited, int allowedMin) {
+        if (getKey() < allowedMin) {
+            return false;
+        }
+
+        if (hasCircle(visited)) {
+            System.out.println("Has circle: " + hasCircle(visited));
+            return false;
+        }
+
+        int leftHeight = getLeft() != null ? getLeft().height() : 0;
+        int rightHeight = getRight() != null ? getRight().height() : 0;
+        int calculatedBalance = rightHeight - leftHeight;
+
+        if (getBalance() != calculatedBalance) {
+            System.out.println("Wrong saved balance");
+            return false;
+        }
+        if (Math.abs(getBalance()) > 1) {
+            System.out.println("Balance to big");
+            return false;
+        }
+        if (getLeft() != null && getLeft().getKey() > getKey()) {
+            System.out.println("Left key bigger current key");
+            return false;
+        }
+        if (getRight() != null && getRight().getKey() < getKey()) {
+            System.out.println("Right key smaller current key");
+            return false;
+        }
+
+        boolean left = getLeft() != null ? getLeft().validateRight(visited, allowedMin) : true;
+        boolean right = getRight() != null ? getRight().validateRight(visited, allowedMin) : true;
+
+        return left && right;
+    }
+
+    public boolean hasCircle(ArrayList<AVLTreeNode> visited) {
+        if (visited.contains(this)) {
+            return true;
+        } else {
+            visited.add(this);
+           /* if (getLeft() != null && getLeft().hasCircle(visited)) {
+                return true;
+            }
+            if (getRight() != null && getRight().hasCircle(visited)) {
+                return true;
+            }*/
+        }
+        return false;
     }
 
     public boolean find(int key) {

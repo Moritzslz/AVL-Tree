@@ -22,7 +22,15 @@ public class AVLTree {
     }
 
     public boolean validAVL() {
-        return true;
+        ArrayList<AVLTreeNode> leftTree = new ArrayList<>();
+        ArrayList<AVLTreeNode> rightTree = new ArrayList<>();
+        leftTree.add(root);
+        rightTree.add(root);
+
+        boolean leftValid = root.getLeft() != null ? root.getLeft().validateLeft(leftTree, root.getKey() - 1) : true;
+        boolean rightValid = root.getRight() != null ? root.getRight().validateRight(rightTree, root.getKey()) : true;
+
+        return leftValid && rightValid;
     }
 
     public void insert(int key) {
@@ -56,13 +64,13 @@ public class AVLTree {
         AVLTree avlTree = new AVLTree();
         AVLTreeNode one = new AVLTreeNode(10);
         avlTree.setRoot(one);
-        AVLTreeNode two = new AVLTreeNode(11);
+        AVLTreeNode two = new AVLTreeNode(12);
         one.setRight(two);
-        AVLTreeNode three = new AVLTreeNode(9);
+        AVLTreeNode three = new AVLTreeNode(8);
         one.setLeft(three);
-        AVLTreeNode four = new AVLTreeNode(11);
+        AVLTreeNode four = new AVLTreeNode(9);
         three.setRight(four);
-        AVLTreeNode five = new AVLTreeNode(5);
+        AVLTreeNode five = new AVLTreeNode(11);
         two.setLeft(five);
         one.setBalance(0);
         two.setBalance(-1);

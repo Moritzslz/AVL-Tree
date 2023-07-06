@@ -95,6 +95,12 @@ public class AVLTreeNode {
             return true;
         } else {
             nodes.add(this);
+            if (getLeft() != null && getLeft().hasCircle(nodes)) {
+                return true;
+            }
+            if (getRight() != null && getRight().hasCircle(nodes)) {
+                return true;
+            }
         }
         return false;
     }

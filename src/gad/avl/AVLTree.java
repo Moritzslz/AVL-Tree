@@ -82,5 +82,67 @@ public class AVLTree {
 
         System.out.println(avlTree.dot());
         System.out.println(avlTree.validAVL()); // Expected output: true
+
+        AVLTree avlTree2 = new AVLTree();
+        AVLTreeNode one2 = new AVLTreeNode(10);
+        avlTree2.setRoot(one2);
+        AVLTreeNode two2 = new AVLTreeNode(12);
+        one2.setRight(two2);
+        AVLTreeNode three2 = new AVLTreeNode(8);
+        one2.setLeft(three2);
+        AVLTreeNode four2 = new AVLTreeNode(9);
+        three2.setRight(four2);
+        AVLTreeNode five2 = new AVLTreeNode(7);
+        three2.setLeft(five2);
+        one2.setBalance(0);
+        two2.setBalance(-1);
+        three2.setBalance(1);
+        four2.setBalance(0);
+        five2.setBalance(0);
+
+        System.out.println(avlTree2.dot());
+        System.out.println(avlTree2.validAVL()); // Expected output: false (saved balance miss-match)
+
+        AVLTree avlTree3 = new AVLTree();
+        AVLTreeNode one3 = new AVLTreeNode(10);
+        avlTree3.setRoot(one3);
+        AVLTreeNode two3 = new AVLTreeNode(12);
+        one3.setRight(two3);
+        AVLTreeNode three3 = new AVLTreeNode(8);
+        one3.setLeft(three3);
+        AVLTreeNode four3 = new AVLTreeNode(9);
+        three3.setRight(four3);
+        AVLTreeNode five3 = new AVLTreeNode(7);
+        three3.setLeft(five3);
+        four3.setLeft(five3); // Create a circle by setting the left child of 'four3' to 'five3'
+        one3.setBalance(0);
+        two3.setBalance(-1);
+        three3.setBalance(1);
+        four3.setBalance(0);
+        five3.setBalance(0);
+
+        System.out.println(avlTree3.dot());
+        System.out.println(avlTree3.validAVL()); // Expected output: false (invalid AVL tree with circle)
+
+        AVLTree avlTree4 = new AVLTree();
+        AVLTreeNode one4 = new AVLTreeNode(10);
+        avlTree4.setRoot(one4);
+        AVLTreeNode two4 = new AVLTreeNode(12);
+        one4.setRight(two4);
+        AVLTreeNode three4 = new AVLTreeNode(8);
+        one4.setLeft(three4);
+        AVLTreeNode four4 = new AVLTreeNode(9);
+        three4.setRight(four4);
+        AVLTreeNode five4 = new AVLTreeNode(7);
+        three4.setLeft(five4);
+        four4.setRight(one4); // Create a circle by setting the right child of 'four4' to 'one4'
+        one4.setBalance(0);
+        two4.setBalance(-1);
+        three4.setBalance(1);
+        four4.setBalance(0);
+        five4.setBalance(0);
+
+        System.out.println(avlTree4.dot());
+        System.out.println(avlTree4.validAVL()); // Expected output: false (invalid AVL tree with circle)
     }
 }

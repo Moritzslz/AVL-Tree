@@ -84,7 +84,7 @@ public class AVLTreeNode {
         }
 
         // Recursive call
-        return node.getLeft().validate(node.getLeft(), visited) && node.getRight().validate(node.getRight(), visited);
+        return validate(node.getLeft(), visited) && validate(node.getRight(), visited);
     }
 
     public boolean hasCircle(ArrayList<AVLTreeNode> visited) {

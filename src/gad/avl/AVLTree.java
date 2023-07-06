@@ -1,6 +1,7 @@
 package gad.avl;
 
 import java.util.ArrayList;
+import java.util.stream.*;
 
 public class AVLTree {
     private AVLTreeNode root = null;
@@ -22,20 +23,62 @@ public class AVLTree {
 
     public boolean validAVL() {
         ArrayList<AVLTreeNode> nodes = new ArrayList<>();
-        return root.validate(root);
+        return root.validate(nodes) && !root.hasCircle(new ArrayList<>());
     }
 
     public void insert(int key) {
-        // Create and insert new node recursively
         AVLTreeNode node = new AVLTreeNode(key);
-        root.insert(node);
-
-        // Re-balance Tree is necessary
-        if (validAVL()) {
-            return;
+        if (root != null) {
+            root = insertNode(root, node);
         } else {
-
+            root = node;
         }
+        balanceTree(node);
+    }
+
+    private AVLTreeNode insertNode(AVLTreeNode current, AVLTreeNode node) {
+        if (current == null) {
+            return node;
+        }
+
+        if (node.getKey() < current.getKey()) {
+            current.setLeft(insertNode(current.getLeft(), node));
+        } else if (node.getKey() > current.getKey()) {
+            current.setRight(insertNode(current.getRight(), node));
+        }
+
+        return current;
+    }
+    private void balanceTree(AVLTreeNode node) {
+        AVLTreeNode current = node;
+        while (current != null) {
+            int balance = current.calculateBalance();
+            if (balance > 1) {
+                if (current.getRight() != null && current.getRight().calculateBalance() < 0) {
+                    current.setRight(rotateRight(current.getRight()));
+                }
+                current = rotateLeft(current);
+            } else if (balance < -1) {
+                if (current.getLeft() != null && current.getLeft().calculateBalance() > 0) {
+                    current.setLeft(rotateLeft(current.getLeft()));
+                }
+                current = rotateRight(current);
+            }
+        }
+    }
+
+    private AVLTreeNode rotateLeft(AVLTreeNode node) {
+        AVLTreeNode rightChild = node.getRight();
+        node.setRight(rightChild.getLeft());
+        rightChild.setLeft(node);
+        return rightChild;
+    }
+
+    private AVLTreeNode rotateRight(AVLTreeNode node) {
+        AVLTreeNode leftChild = node.getLeft();
+        node.setLeft(leftChild.getRight());
+        leftChild.setRight(node);
+        return leftChild;
     }
 
     public boolean find(int key) {

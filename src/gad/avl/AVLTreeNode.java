@@ -55,46 +55,34 @@ public class AVLTreeNode {
         }
     }
 
-    public boolean validate(AVLTreeNode node) {
-        if (node == null) {
-            return true;
+    public boolean validate(ArrayList<AVLTreeNode> nodes) {
+        if (nodes.contains(this)) {
+            return false;
         }
+        nodes.add(this);
 
-        int leftHeight = (node.getLeft() != null) ? node.getLeft().height() : 0;
-        int rightHeight = (node.getRight() != null) ? node.getRight().height() : 0;
-        int calculatedBalance = rightHeight - leftHeight;
+        int leftHeight = (left != null) ? left.height() : 0;
+        int rightHeight = (right != null) ? right.height() : 0;
 
-        // Check if the AVL invariants are met
-        if (node.getBalance() != calculatedBalance) {
-            return false;
-        }
-        if (calculatedBalance > 1 || calculatedBalance < -1) {
-            return false;
-        }
-        if (node.getLeft() != null && node.getLeft().getKey() > node.getKey()) {
-            return false;
-        }
-        if (node.getRight() != null && node.getRight().getKey() < node.getKey()) {
+        if (Math.abs(balance) > 1 || Math.abs(balance) != (rightHeight - leftHeight)) {
             return false;
         }
 
-        // Recursive call
-        return validate(node.getLeft()) && validate(node.getRight());
+        boolean validLeft = (left == null) || (left.validate(nodes) && left.getKey() <= key);
+        boolean validRight = (right == null) || (right.validate(nodes) && right.getKey() >= key);
+
+        return validLeft && validRight;
     }
 
     public boolean hasCircle(ArrayList<AVLTreeNode> visited) {
-       if (visited.contains(this)) {
+        if (visited.contains(this)) {
             return true;
-       } else {
+        } else {
             visited.add(this);
-            if (getLeft() != null && getLeft().hasCircle(visited)) {
-                return true;
-            }
-            if (getRight() != null && getRight().hasCircle(visited)) {
-                return true;
-            }
+            boolean circleLeft = (left != null) && left.hasCircle(new ArrayList<>(visited));
+            boolean circleRight = (right != null) && right.hasCircle(new ArrayList<>(visited));
+            return circleLeft || circleRight;
         }
-        return false;
     }
 
     public boolean find(int key) {
@@ -119,23 +107,25 @@ public class AVLTreeNode {
     }
 
     public void insert(AVLTreeNode node) {
-        if (node.getKey() < getKey()) {
-            // Insert left
-            if (getLeft() != null) {
-                getLeft().insert(node);
+        if (node.getKey() < key) {
+            if (left != null) {
+                left.insert(node);
             } else {
-                setLeft(node);
-                resetBalance(getLeft());
+                left = node;
             }
-        } else  {
-            // Insert right
-            if (getRight() != null) {
-                getRight().insert(node);
+        } else if (node.getKey() > key) {
+            if (right != null) {
+                right.insert(node);
             } else {
-                setRight(node);
-                resetBalance(getRight());
+                right = node;
             }
         }
+    }
+
+    public int calculateBalance() {
+        int leftHeight = (left != null) ? left.height() : 0;
+        int rightHeight = (right != null) ? right.height() : 0;
+        return rightHeight - leftHeight;
     }
 
     public void resetBalance (AVLTreeNode node) {

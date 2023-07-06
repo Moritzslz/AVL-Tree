@@ -62,26 +62,26 @@ public class AVLTreeNode {
             return true;
         }
 
-        int leftHeight = (left != null) ? left.height() : 0;
-        int rightHeight = (right != null) ? right.height() : 0;
+        int leftHeight = (getLeft() != null) ? getLeft().height() : 0;
+        int rightHeight = (getRight() != null) ? getRight().height() : 0;
         int calculatedBalance = rightHeight - leftHeight;
 
         // Check if the AVL invariants are met
-        if (balance != calculatedBalance) {
+        if (getBalance() != calculatedBalance) {
             return false;
         }
         if (Math.abs(calculatedBalance) > 1) {
             return false;
         }
-        if (left != null && left.getKey() > key) {
+        if (getLeft() != null && getLeft().getKey() > getKey()) {
             return false;
         }
-        if (right != null && right.getKey() < key) {
+        if (getRight() != null && getRight().getKey() < getKey()) {
             return false;
         }
 
         // Recursive call
-        valid = left.validate() && right.validate();
+        valid = getLeft().validate() && getRight().validate();
         return valid;
     }
 
@@ -95,24 +95,24 @@ public class AVLTreeNode {
         } else {
             nodes.add(this);
         }
-        return left.hasCircle(nodes) && right.hasCircle(nodes);
+        return getLeft().hasCircle(nodes) && getRight().hasCircle(nodes);
     }
 
     public boolean find(int key) {
-        if (this.key == key) {
+        if (getKey() == key) {
             return true;
         }
-        if (key < this.key) {
+        if (key < getKey()) {
             // Search left side
-            if (left != null) {
-                return left.find(key);
+            if (getLeft() != null) {
+                return getLeft().find(key);
             } else {
                 return false;
             }
         } else {
             // Search right side
-            if (right != null) {
-                return right.find(key);
+            if (getRight() != null) {
+                return getRight().find(key);
             } else {
                 return false;
             }
@@ -120,21 +120,21 @@ public class AVLTreeNode {
     }
 
     public void insert(AVLTreeNode node) {
-        if (node.getKey() < key) {
+        if (node.getKey() < getKey()) {
             // Insert left
-            if (left != null) {
-                left.insert(node);
+            if (getLeft() != null) {
+                getLeft().insert(node);
             } else {
-                left = node;
-                resetBalance(left);
+                setLeft(node);
+                resetBalance(getLeft());
             }
         } else  {
             // Insert right
-            if (right != null) {
-                right.insert(node);
+            if (getRight() != null) {
+                getRight().insert(node);
             } else {
-                right = node;
-                resetBalance(right);
+                setRight(node);
+                resetBalance(getRight());
             }
         }
     }

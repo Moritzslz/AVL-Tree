@@ -29,7 +29,7 @@ public class AVLTree {
             return false;
         }
 
-        boolean leftValid = root.getLeft() != null ? root.getLeft().validateLeft(root.getKey() - 1) : true;
+        boolean leftValid = root.getLeft() != null ? root.getLeft().validateLeft(root.getKey()) : true;
         boolean rightValid = root.getRight() != null ? root.getRight().validateRight(root.getKey()) : true;
 
         return leftValid && rightValid;

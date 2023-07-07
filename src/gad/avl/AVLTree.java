@@ -60,10 +60,11 @@ public class AVLTree {
         } else {
             root.insert(node);
             if (!validAVL()) {
-                balance(root);
+                setRoot(balance(root));
             }
         }
     }
+
     private void updateBalance(AVLTreeNode node) {
         int leftHeight = node.getLeft() != null ? node.getLeft().height() : -1;
         int rightHeight = node.getRight() != null ? node.getRight().height() : -1;

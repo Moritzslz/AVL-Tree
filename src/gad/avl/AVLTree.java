@@ -60,6 +60,7 @@ public class AVLTree {
         } else {
             root.insert(node);
             if (!validAVL()) {
+                updateBalance(root);
                 setRoot(balance(root));
             }
         }

@@ -8,6 +8,8 @@ public class AVLTreeNode {
     private AVLTreeNode left = null;
     private AVLTreeNode right = null;
 
+    private boolean visited = false;
+
     public AVLTreeNode(int key) {
         this.key = key;
     }
@@ -55,55 +57,39 @@ public class AVLTreeNode {
         }
     }
 
-    public boolean validateLeft(ArrayList<AVLTreeNode> visited, int allowedMax) {
-        if (hasCircle(visited)) {
-            System.out.println("Has circle: " + hasCircle(visited));
-            return false;
-        }
-
+    public boolean validateLeft(int allowedMax) {
         if (getKey() > allowedMax) {
             System.out.println("To big value in left subtree: " + getKey());
             return false;
         }
 
-        int leftHeight = getLeft() != null ? getLeft().height() : 0;
-        int rightHeight = getRight() != null ? getRight().height() : 0;
-        int calculatedBalance = rightHeight - leftHeight;
-
-        if (getBalance() != calculatedBalance) {
-            System.out.println("Wrong saved balance");
-            return false;
-        }
-        if (Math.abs(getBalance()) > 1) {
-            System.out.println("Balance to big");
-            return false;
-        }
-        if (getLeft() != null && getLeft().getKey() > getKey()) {
-            System.out.println("Left key bigger current key");
-            return false;
-        }
-        if (getRight() != null && getRight().getKey() < getKey()) {
-            System.out.println("Right key smaller current key");
+        if (!validate()) {
             return false;
         }
 
-        boolean left = getLeft() != null ? getLeft().validateLeft(visited, allowedMax) : true;
-        boolean right = getRight() != null ? getRight().validateLeft(visited, allowedMax) : true;
+        boolean left = getLeft() != null ? getLeft().validateLeft(allowedMax) : true;
+        boolean right = getRight() != null ? getRight().validateLeft(allowedMax) : true;
 
         return left && right;
     }
 
-    public boolean validateRight(ArrayList<AVLTreeNode> visited, int allowedMin) {
-        if (hasCircle(visited)) {
-            System.out.println("Has circle: " + hasCircle(visited));
-            return false;
-        }
-
+    public boolean validateRight(int allowedMin) {
         if (getKey() < allowedMin) {
             System.out.println("To small value in right subtree: " + getKey());
             return false;
         }
 
+        if (!validate()) {
+            return false;
+        }
+
+        boolean left = getLeft() != null ? getLeft().validateRight(allowedMin) : true;
+        boolean right = getRight() != null ? getRight().validateRight(allowedMin) : true;
+
+        return left && right;
+    }
+
+    public boolean validate () {
         int leftHeight = getLeft() != null ? getLeft().height() : 0;
         int rightHeight = getRight() != null ? getRight().height() : 0;
         int calculatedBalance = rightHeight - leftHeight;
@@ -125,25 +111,7 @@ public class AVLTreeNode {
             return false;
         }
 
-        boolean left = getLeft() != null ? getLeft().validateRight(visited, allowedMin) : true;
-        boolean right = getRight() != null ? getRight().validateRight(visited, allowedMin) : true;
-
-        return left && right;
-    }
-
-    public boolean hasCircle(ArrayList<AVLTreeNode> visited) {
-        if (visited.contains(this)) {
-            return true;
-        } else {
-            visited.add(this);
-            if (getLeft() != null && visited.contains(getLeft())) {
-                return true;
-            }
-            if (getRight() != null && visited.contains(getRight())) {
-                return true;
-            }
-        }
-        return false;
+        return true;
     }
 
     public boolean find(int key) {

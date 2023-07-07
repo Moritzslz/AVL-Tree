@@ -22,17 +22,31 @@ public class AVLTree {
     }
 
     public boolean validAVL() {
-        ArrayList<AVLTreeNode> leftTree = new ArrayList<>();
-        ArrayList<AVLTreeNode> rightTree = new ArrayList<>();
         ArrayList<AVLTreeNode> visited = new ArrayList<>();
-        leftTree.add(root);
-        rightTree.add(root);
-        visited.add(root);
 
-        boolean leftValid = root.getLeft() != null ? root.getLeft().validateLeft(visited, root.getKey() - 1) : true;
-        boolean rightValid = root.getRight() != null ? root.getRight().validateRight(visited, root.getKey()) : true;
+        if (hasCircle(root, visited)) {
+            System.out.println("Has circle");
+            return false;
+        }
+
+        boolean leftValid = root.getLeft() != null ? root.getLeft().validateLeft(root.getKey() - 1) : true;
+        boolean rightValid = root.getRight() != null ? root.getRight().validateRight(root.getKey()) : true;
 
         return leftValid && rightValid;
+    }
+
+    public boolean hasCircle(AVLTreeNode node, ArrayList<AVLTreeNode> visited) {
+        if (node == null) {
+            return false;
+        }
+
+        if (visited.contains(node)) {
+            return true;
+        } else {
+            visited.add(node);
+        }
+
+        return hasCircle(node.getLeft(), visited) ||  hasCircle(node.getRight(), visited);
     }
 
     public void insert(int key) {
@@ -135,11 +149,12 @@ public class AVLTree {
         three4.setRight(four4);
         AVLTreeNode five4 = new AVLTreeNode(7);
         three4.setLeft(five4);
-        four4.setRight(one4); // Create a circle by setting the right child of 'four4' to 'one4'
-        one4.setBalance(0);
-        two4.setBalance(-1);
+        //four4.setRight(one4); // Create a circle by setting the right child of 'four4' to 'one4'
+        five4.setRight(four4); // Create a circle by setting the right child of 'five4' to 'four4'
+        one4.setBalance(-1);
+        two4.setBalance(0);
         three4.setBalance(1);
-        four4.setBalance(0);
+        four4.setBalance(1);
         five4.setBalance(0);
 
         System.out.println(avlTree4.dot());

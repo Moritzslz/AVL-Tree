@@ -42,24 +42,11 @@ public class AVLTreeNode {
         this.balance = balance;
     }
 
-    public int height() {
-        if (getLeft() == null && getRight() == null) {
-            return 1;
-        } else {
-            int height = 0;
-            if (getLeft() != null) {
-                height++;
-                getLeft().height();
-            }
-            if (getRight() != null) {
-                height++;
-                getRight().height();
-            }
-            if (getLeft() != null && getRight() != null) {
-                height--;
-            }
-            return height;
+    public int height(AVLTreeNode node) {
+        if (node == null) {
+            return 0;
         }
+        return Math.max(height(node.getLeft()), height(node.getRight())) + 1;
     }
 
     public boolean validateLeft(int allowedMax) {
@@ -95,8 +82,8 @@ public class AVLTreeNode {
     }
 
     public boolean validate () {
-        int leftHeight = getLeft() != null ? getLeft().height() : 0;
-        int rightHeight = getRight() != null ? getRight().height() : 0;
+        int leftHeight = getLeft() != null ? height(getLeft()) : 0;
+        int rightHeight = getRight() != null ? height(getRight()) : 0;
         int calculatedBalance = rightHeight - leftHeight;
 
         if (getBalance() != calculatedBalance) {

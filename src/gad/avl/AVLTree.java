@@ -55,9 +55,13 @@ public class AVLTree {
 
     public void insert(int key) {
         AVLTreeNode node = new AVLTreeNode(key);
-        root.insert(node);
-        if (!validAVL()) {
-            balance(root);
+        if (root == null) {
+            root = node;
+        } else {
+            root.insert(node);
+            if (!validAVL()) {
+                balance(root);
+            }
         }
     }
     private void updateBalance(AVLTreeNode node) {

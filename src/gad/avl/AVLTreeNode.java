@@ -151,10 +151,6 @@ public class AVLTreeNode {
         }
     }
 
-    public void balance() {
-
-    }
-
     /**
      * Diese Methode wandelt den Baum in das Graphviz-Format um.
      *

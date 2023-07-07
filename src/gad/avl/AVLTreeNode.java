@@ -46,6 +46,7 @@ public class AVLTreeNode {
         if (node == null) {
             return 0;
         }
+
         return Math.max(height(node.getLeft()), height(node.getRight())) + 1;
     }
 

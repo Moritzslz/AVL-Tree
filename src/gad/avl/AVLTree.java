@@ -59,10 +59,11 @@ public class AVLTree {
             root = node;
         } else {
             root.insert(node);
-            if (!validAVL()) {
+            while (!validAVL()) {
                 updateBalance(root);
                 setRoot(balance(root));
             }
+
         }
     }
 

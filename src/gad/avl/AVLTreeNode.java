@@ -59,7 +59,7 @@ public class AVLTreeNode {
 
     public boolean validateLeft(int allowedMax) {
         if (getKey() > allowedMax) {
-            System.out.println("To big value in left subtree: " + getKey());
+            //System.out.println("To big value in left subtree: " + getKey());
             return false;
         }
 
@@ -75,7 +75,7 @@ public class AVLTreeNode {
 
     public boolean validateRight(int allowedMin) {
         if (getKey() < allowedMin) {
-            System.out.println("To small value in right subtree: " + getKey());
+            //System.out.println("To small value in right subtree: " + getKey());
             return false;
         }
 
@@ -95,19 +95,19 @@ public class AVLTreeNode {
         int calculatedBalance = rightHeight - leftHeight;
 
         if (getBalance() != calculatedBalance) {
-            System.out.println("Wrong saved balance");
+            //System.out.println("Wrong saved balance");
             return false;
         }
         if (Math.abs(getBalance()) > 1) {
-            System.out.println("Balance to big");
+            //System.out.println("Balance to big");
             return false;
         }
         if (getLeft() != null && getLeft().getKey() > getKey()) {
-            System.out.println("Left key bigger current key");
+            //System.out.println("Left key bigger current key");
             return false;
         }
         if (getRight() != null && getRight().getKey() < getKey()) {
-            System.out.println("Right key smaller current key");
+            //System.out.println("Right key smaller current key");
             return false;
         }
 

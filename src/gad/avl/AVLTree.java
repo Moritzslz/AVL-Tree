@@ -25,7 +25,7 @@ public class AVLTree {
         ArrayList<AVLTreeNode> visited = new ArrayList<>();
 
         if (hasCircle(root, visited)) {
-            System.out.println("Has circle");
+            //System.out.println("Has circle");
             return false;
         }
 

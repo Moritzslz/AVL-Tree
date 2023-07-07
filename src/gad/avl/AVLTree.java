@@ -29,9 +29,9 @@ public class AVLTree {
             return false;
         }
 
-        /*if (!root.validate()) {
+        if (!root.validate()) {
             return false;
-        }*/
+        }
 
         boolean leftValid = root.getLeft() != null ? root.getLeft().validateLeft(root.getKey()) : true;
         boolean rightValid = root.getRight() != null ? root.getRight().validateRight(root.getKey()) : true;
@@ -142,7 +142,7 @@ public class AVLTree {
         System.out.println(avlTree3.dot());
         System.out.println(avlTree3.validAVL()); // Expected output: false (invalid AVL tree with circle)
 
-        AVLTree avlTree4 = new AVLTree();
+     /*   AVLTree avlTree4 = new AVLTree();
         AVLTreeNode one4 = new AVLTreeNode(10);
         avlTree4.setRoot(one4);
         AVLTreeNode two4 = new AVLTreeNode(12);
@@ -153,8 +153,7 @@ public class AVLTree {
         three4.setRight(four4);
         AVLTreeNode five4 = new AVLTreeNode(7);
         three4.setLeft(five4);
-        //four4.setRight(one4); // Create a circle by setting the right child of 'four4' to 'one4'
-        five4.setRight(four4); // Create a circle by setting the right child of 'five4' to 'four4'
+        four4.setRight(one4); // Create a circle by setting the right child of 'four4' to 'one4'
         one4.setBalance(-1);
         two4.setBalance(0);
         three4.setBalance(1);
@@ -162,6 +161,29 @@ public class AVLTree {
         five4.setBalance(0);
 
         System.out.println(avlTree4.dot());
-        System.out.println(avlTree4.validAVL()); // Expected output: false (invalid AVL tree with circle)
+        System.out.println(avlTree4.validAVL()); // Expected output: false (invalid AVL tree with circle)*/
+
+        AVLTree avlTree5 = new AVLTree();
+        AVLTreeNode one5 = new AVLTreeNode(10);
+        avlTree5.setRoot(one5);
+        AVLTreeNode two5 = new AVLTreeNode(11);
+        one5.setRight(two5);
+        AVLTreeNode three5 = new AVLTreeNode(9);
+        one5.setLeft(three5);
+        AVLTreeNode four5 = new AVLTreeNode(10);
+        three5.setRight(four5);
+        AVLTreeNode five5 = new AVLTreeNode(9);
+        three5.setLeft(five5);
+        AVLTreeNode six5 = new AVLTreeNode(10);
+        two5.setLeft(six5);
+        one5.setBalance(0);
+        two5.setBalance(-1);
+        three5.setBalance(0);
+        four5.setBalance(0);
+        five5.setBalance(0);
+        six5.setBalance(0);
+
+        System.out.println(avlTree5.dot());
+        System.out.println(avlTree5.validAVL()); // Expected output: true
     }
 }

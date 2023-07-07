@@ -54,6 +54,54 @@ public class AVLTree {
     }
 
     public void insert(int key) {
+        AVLTreeNode node = new AVLTreeNode(key);
+        root.insert(node);
+        if (!validAVL()) {
+            balance(root);
+        }
+    }
+    private void updateBalance(AVLTreeNode node) {
+        int leftHeight = node.getLeft() != null ? node.getLeft().height() : -1;
+        int rightHeight = node.getRight() != null ? node.getRight().height() : -1;
+        node.setBalance(rightHeight - leftHeight);
+    }
+
+    private AVLTreeNode balance(AVLTreeNode node) {
+        if (node.getBalance() < -1) {
+            if (node.getLeft().getBalance() > 0) {
+                node.setLeft(rotateLeft(node.getLeft()));
+            }
+            return rotateRight(node);
+        } else if (node.getBalance() > 1) {
+            if (node.getRight().getBalance() < 0) {
+                node.setRight(rotateRight(node.getRight()));
+            }
+            return rotateLeft(node);
+        }
+
+        return node;
+    }
+
+    private AVLTreeNode rotateLeft(AVLTreeNode node) {
+        AVLTreeNode newRoot = node.getRight();
+        node.setRight(newRoot.getLeft());
+        newRoot.setLeft(node);
+
+        updateBalance(node);
+        updateBalance(newRoot);
+
+        return newRoot;
+    }
+
+    private AVLTreeNode rotateRight(AVLTreeNode node) {
+        AVLTreeNode newRoot = node.getLeft();
+        node.setLeft(newRoot.getRight());
+        newRoot.setRight(node);
+
+        updateBalance(node);
+        updateBalance(newRoot);
+
+        return newRoot;
     }
 
     public boolean find(int key) {

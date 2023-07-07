@@ -132,8 +132,28 @@ public class AVLTreeNode {
     }
 
     public void insert(AVLTreeNode node) {
+        if (node.getKey() < getKey()) {
+            // Insert Left
+            if (getLeft() == null) {
+                setLeft(node);
+                setBalance(balance - 1);
+            } else {
+                getLeft().insert(node);
+            }
+        } else {
+            // Insert Right
+            if (getRight() == null) {
+                setRight(node);
+                setBalance(balance + 1);
+            } else {
+                getRight().insert(node);
+            }
+        }
     }
 
+    public void balance() {
+
+    }
 
     /**
      * Diese Methode wandelt den Baum in das Graphviz-Format um.

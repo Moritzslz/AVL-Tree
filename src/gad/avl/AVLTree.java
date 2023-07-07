@@ -22,6 +22,10 @@ public class AVLTree {
     }
 
     public boolean validAVL() {
+        if (root == null) {
+            return true;
+        }
+
         ArrayList<AVLTreeNode> visited = new ArrayList<>();
 
         if (hasCircle(root, visited)) {

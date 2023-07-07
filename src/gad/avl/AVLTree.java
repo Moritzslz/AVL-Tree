@@ -142,7 +142,7 @@ public class AVLTree {
         System.out.println(avlTree3.dot());
         System.out.println(avlTree3.validAVL()); // Expected output: false (invalid AVL tree with circle)
 
-     /*   AVLTree avlTree4 = new AVLTree();
+        /*AVLTree avlTree4 = new AVLTree();
         AVLTreeNode one4 = new AVLTreeNode(10);
         avlTree4.setRoot(one4);
         AVLTreeNode two4 = new AVLTreeNode(12);

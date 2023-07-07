@@ -136,7 +136,6 @@ public class AVLTreeNode {
             // Insert Left
             if (getLeft() == null) {
                 setLeft(node);
-                setBalance(balance - 1);
             } else {
                 getLeft().insert(node);
             }
@@ -144,7 +143,6 @@ public class AVLTreeNode {
             // Insert Right
             if (getRight() == null) {
                 setRight(node);
-                setBalance(balance + 1);
             } else {
                 getRight().insert(node);
             }

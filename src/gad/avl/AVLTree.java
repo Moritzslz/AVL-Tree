@@ -54,82 +54,69 @@ public class AVLTree {
     }
 
     public void insert(int key) {
-        AVLTreeNode node = new AVLTreeNode(key);
-        if (root == null) {
-            root = node;
-        } else {
-            root.insert(node);
-            updateBalance(root);
-            if (!validAVL()) {
-                setRoot(balance(root));
-            }
-
-        }
+        setRoot(insertNode(root, key));
     }
 
     private void updateBalance(AVLTreeNode node) {
-        int leftHeight = node.getLeft() != null ? node.heightHelper(node.getLeft()) : 0;
-        int rightHeight = node.getRight() != null ? node.heightHelper(node.getRight()) : 0;
-        int calculatedBalance = rightHeight - leftHeight;
-        node.setBalance(calculatedBalance);
-        if (node.getRight() != null) {
-            updateBalance(node.getRight());
+        int leftHeight = node.getLeft() != null ? node.getLeft().height() : 0;
+        int rightHeight = node.getRight() != null ? node.getRight().height() : 0;
+        node.setBalance(rightHeight - leftHeight);
+    }
+
+    private AVLTreeNode insertNode(AVLTreeNode node, int key) {
+        if (node == null) {
+            return new AVLTreeNode(key);
         }
-        if (node.getLeft() != null) {
-            updateBalance(node.getLeft());
+
+        if (key <= node.getKey()) {
+            node.setLeft(insertNode(node.getLeft(), key));
+        } else {
+            node.setRight(insertNode(node.getRight(), key));
         }
+
+        updateBalance(node);
+        return balance(node);
     }
 
     private AVLTreeNode balance(AVLTreeNode node) {
         if (node.getBalance() < -1) {
-            // Right rotation
-            AVLTreeNode nNode = node;
+            // Left rotation(s)
             if (node.getLeft().getBalance() > 0) {
-                // Double rotation Left -> Right
-                nNode = rotateLeft(node);
+                // Double rotation: Left -> Right
+                node.setLeft(rotateLeft(node.getLeft()));
             }
-            return rotateRight(nNode);
+            return rotateRight(node);
         } else if (node.getBalance() > 1) {
-            // Left rotation
-            AVLTreeNode nNode = node;
+            // Right rotation(s)
             if (node.getRight().getBalance() < 0) {
                 // Double rotation: Right -> Left
-                nNode = rotateRight(node);
+                node.setRight(rotateRight(node.getRight()));
             }
-            rotateLeft(nNode);
+            return rotateLeft(node);
         }
-
-        updateBalance(root);
-
-        if (node.getLeft() != null) {
-            return balance(node.getLeft());
-        }
-        if (node.getRight() != null) {
-            return balance(node.getRight());
-        }
-
         return node;
     }
 
     private AVLTreeNode rotateLeft(AVLTreeNode node) {
-        AVLTreeNode nNode = node.getRight();
-        node.setRight(nNode.getLeft());
-        nNode.setLeft(node);
+        AVLTreeNode newRoot = node.getRight();
+        node.setRight(newRoot.getLeft());
+        newRoot.setLeft(node);
 
-        updateBalance(root);
+        updateBalance(node);
+        updateBalance(newRoot);
 
-        return nNode;
+        return newRoot;
     }
 
     private AVLTreeNode rotateRight(AVLTreeNode node) {
-        AVLTreeNode nNode = node.getLeft();
-        node.setLeft(nNode.getRight());
-        nNode.setRight(node);
+        AVLTreeNode newRoot = node.getLeft();
+        node.setLeft(newRoot.getRight());
+        newRoot.setRight(node);
 
         updateBalance(node);
-        updateBalance(nNode);
+        updateBalance(newRoot);
 
-        return nNode;
+        return newRoot;
     }
 
     public boolean find(int key) {
@@ -177,7 +164,16 @@ public class AVLTree {
         System.out.println(avlTree.dot());
         System.out.println(avlTree.validAVL()); // Expected output: true
 
-        AVLTree avlTree2 = new AVLTree();
+        avlTree.insert(3);
+        System.out.println(avlTree.dot());
+        avlTree.insert(99);
+        System.out.println(avlTree.dot());
+        avlTree.insert(98);
+        System.out.println(avlTree.dot());
+        avlTree.insert(97);
+        System.out.println(avlTree.dot());
+
+        /*AVLTree avlTree2 = new AVLTree();
         AVLTreeNode one2 = new AVLTreeNode(10);
         avlTree2.setRoot(one2);
         AVLTreeNode two2 = new AVLTreeNode(12);
@@ -237,7 +233,7 @@ public class AVLTree {
         five4.setBalance(0);
 
         System.out.println(avlTree4.dot());
-        System.out.println(avlTree4.validAVL()); // Expected output: false (invalid AVL tree with circle)*/
+        System.out.println(avlTree4.validAVL()); // Expected output: false (invalid AVL tree with circle)
 
         AVLTree avlTree5 = new AVLTree();
         AVLTreeNode one5 = new AVLTreeNode(10);
@@ -260,6 +256,6 @@ public class AVLTree {
         six5.setBalance(0);
 
         System.out.println(avlTree5.dot());
-        System.out.println(avlTree5.validAVL()); // Expected output: true
+        System.out.println(avlTree5.validAVL()); // Expected output: true*/
     }
 }
